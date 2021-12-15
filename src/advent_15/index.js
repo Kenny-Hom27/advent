@@ -48,14 +48,15 @@ const findPath = (map, startPos = [0, 0]) => {
         const { pos: [x, y], total } = queue.shift();
         if (y === map.length - 1 && x === map[0].length - 1) return total;
 
-        adj.map(([dx, dy]) => [dx + x, dy + y])
-            .filter(([x, y]) => map[y]?.[x])
-            .filter(([x, y]) => !visited.has(x + 'x' + y))
-            .forEach(([x, y]) => {
-                visited.add(x + 'x' + y);
-                queue.push({ pos: [x, y], total: total + map[y][x] });
-            });
-            
+        for (let i=0; i<adj.length; i++) {
+            let posX = adj[i][0] + x
+            let posY = adj[i][1] + y 
+            if (!map[posX]?.[posY] || visited.has(posX + 'x' + posY)) continue
+
+            visited.add(posX + 'x' + posY);
+            queue.push({ pos: [posX, posY], total: total + map[posX][posY] });
+        }
+
         queue.sort((a, b) => a.total - b.total);
     }
   };
