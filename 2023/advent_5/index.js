@@ -199,10 +199,8 @@ for (let i = 0; i < seeds.length; i += 2) {
   let start = Number(seeds[0]);
   let range = Number(seeds[1]);
   const end = start + range - 1;
-  console.log(range);
 
   for (let j = start; j < end; j++) {
-    let overlap = Math.min(end, seeds[j].end) - Math.max(start, seeds[j].start);
     if (map[j]) continue;
     const c = calc(j);
     map[j] = c;
@@ -213,4 +211,4 @@ for (let i = 0; i < seeds.length; i += 2) {
   }
 }
 
-console.log(part2Min);
+console.log(min);
