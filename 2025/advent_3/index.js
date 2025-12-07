@@ -2,8 +2,6 @@ import { data } from "./data.js";
 
 const format = data.split(/\r?\n/);
 
-console.log(format);
-
 function findLargest(str) {
   let maxLeft = -1;
   let maxNum = -1;
@@ -35,4 +33,31 @@ function calc() {
   return total;
 }
 
-console.log(calc());
+function maxDigits(str, K) {
+  const digits = str.split("").map(Number);
+  const stack = [];
+  let toRemove = digits.length - K;
+
+  for (let digit of digits) {
+    while (stack.length && toRemove > 0 && stack[stack.length - 1] < digit) {
+      stack.pop();
+      toRemove--;
+    }
+
+    stack.push(digit);
+  }
+
+  return Number(stack.slice(0, K).join(""));
+}
+
+function calc2() {
+  let total = 0;
+
+  for (let num of format) {
+    total += maxDigits(num, 12);
+  }
+
+  return total;
+}
+
+console.log(calc2());
